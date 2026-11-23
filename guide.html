@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>图文教程 · Illustrated guide</title>
+<style>
+  :root { --accent: #2457c5; --ink: #1d1d1f; --muted: #5f6368; --line: #dadce0; --page: #eef1f5; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink);
+         font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 24px 20px 70px; }
+  .top { display: flex; justify-content: space-between; align-items: center; }
+  .langbtn { font: inherit; font-size: 14px; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 4px 12px; cursor: pointer; color: var(--muted); }
+  h1 { font-size: 28px; margin: 10px 0 4px; }
+  .lead { color: var(--muted); font-size: 17px; margin: 0 0 18px; }
+  .card { background: #fff; border-radius: 14px; padding: 24px 28px; margin: 18px 0; box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 18px rgba(0,0,0,.05); }
+  .step { display: flex; gap: 14px; align-items: baseline; }
+  .num { flex: 0 0 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  h2 { font-size: 20px; margin: 0 0 6px; }
+  img.shot { width: 100%; border: 1px solid var(--line); border-radius: 8px; margin: 10px 0 4px; display: block; }
+  .cap { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  kbd { display: inline-block; min-width: 24px; text-align: center; background: #f3f4f6; border: 1px solid #c4c7cc; border-bottom-width: 3px;
+        border-radius: 6px; padding: 0 6px; font: 600 14px ui-monospace, Menlo, Consolas, monospace; }
+  .tip { background: #f6f8fb; border-left: 4px solid var(--accent); padding: 10px 14px; border-radius: 6px; margin: 10px 0; }
+  .btn { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; padding: 11px 24px; border-radius: 10px; font-size: 17px; }
+  dt { font-weight: 700; margin-top: 12px; }
+  dd { margin: 4px 0 0 0; }
+  body:not(.lang-en) .en { display: none !important; }
+  body.lang-en .zh { display: none !important; }
+  @media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a href="index.html" class="zh">← 返回实验</a><a href="index.html" class="en">← back to the study</a>
+    <button class="langbtn" id="lb">English</button></div>
+
+  <div class="zh">
+    <h1>图像对比实验 · 图文教程</h1>
+    <p class="lead">整个实验大约 30 分钟。下面按顺序截图说明每一步，跟着做就行。</p>
+  </div>
+  <div class="en">
+    <h1>Image comparison study · illustrated guide</h1>
+    <p class="lead">The whole study takes about 30 minutes. Each step is shown below with a screenshot.</p>
+  </div>
+
+  <div class="card">
+    <div class="zh"><b>开始前准备好：</b>一台电脑（笔记本或台式机，带键盘）；屏幕至少 1600×900 像素；Chrome、Edge、Firefox 或 Safari 浏览器；
+      一个安静、光线正常的地方；大约 30 分钟。<b>手机和平板不行。</b></div>
+    <div class="en"><b>You need:</b> a computer (laptop or desktop with a keyboard); a screen of at least 1600×900 pixels; Chrome, Edge, Firefox or Safari;
+      a quiet place with normal light; about 30 minutes. <b>Phones and tablets will not work.</b></div>
+  </div>
+
+  <div class="card"><div class="step"><div class="num">1</div><div style="flex:1">
+    <h2 class="zh">打开组织者发给你的链接</h2><h2 class="en">Open the link the organizer sent you</h2>
+    <p class="zh">链接里已经带了你的编号（例如 P05），页面上会显示出来。每个人的编号不一样，请只用自己的链接。点「开始」。</p>
+    <p class="en">The link already contains your code (for example P05), which the page shows. Everyone has a different code; please use only your own link. Click "Start".</p>
+    <img class="shot zh" src="img/zh_01_welcome.jpg" alt=""><img class="shot en" src="img/en_01_welcome.jpg" alt="">
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="num">2</div><div style="flex:1">
+    <h2 class="zh">阅读参与说明，勾选两项，点「同意并继续」</h2><h2 class="en">Read the information, tick both boxes, click "Agree and continue"</h2>
+    <p class="zh">接下来有几个关于你的问题（年龄段、视力等），都可以不答，直接点「下一步」。</p>
+    <p class="en">A few optional questions follow (age group, eyesight, ...); you can skip them all and click "Next".</p>
+    <img class="shot zh" src="img/zh_02_consent.jpg" alt=""><img class="shot en" src="img/en_02_consent.jpg" alt="">
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="num">3</div><div style="flex:1">
+    <h2 class="zh">检查屏幕：两项都变绿再继续</h2><h2 class="en">Screen check: continue when both items are green</h2>
+    <div class="two">
+      <div><img class="shot zh" src="img/zh_03_display.jpg" alt=""><img class="shot en" src="img/en_03_display.jpg" alt="">
+        <div class="cap zh">两项都是绿色：可以点「下一步」。</div><div class="cap en">Both green: click "Next".</div></div>
+      <div><img class="shot zh" src="img/zh_03b_display_zoom.jpg" alt=""><img class="shot en" src="img/en_03b_display_zoom.jpg" alt="">
+        <div class="cap zh">「缩放比例」是红的：需要调浏览器缩放。</div><div class="cap en">"Scaling" red: change the browser zoom.</div></div>
+    </div>
+    <div class="tip zh"><b>「缩放比例」是红的怎么办？</b>很多 Windows 笔记本把显示缩放设成了 125% 或 150%。按住 <kbd>Ctrl</kbd> 再按 <kbd>-</kbd>，
+      把浏览器缩放调到 80%（125% 的电脑）或 67%（150% 的电脑），这一项就会变绿。Mac 上按 <kbd>⌘</kbd> 和 <kbd>-</kbd> / <kbd>+</kbd>。<br>
+      <b>「窗口大小」是红的怎么办？</b>点「全屏」。还是红的，说明这块屏幕太小，请换一台电脑或接一个外接显示器。</div>
+    <div class="tip en"><b>"Scaling" is red?</b> Many Windows laptops use display scaling of 125% or 150%. Hold <kbd>Ctrl</kbd> and press <kbd>-</kbd> to set the browser zoom
+      to 80% (125% laptops) or 67% (150% laptops) and the item turns green. On a Mac use <kbd>⌘</kbd> with <kbd>-</kbd> / <kbd>+</kbd>.<br>
+      <b>"Window size" is red?</b> Click "Full screen". If it stays red, the screen is too small: please use another computer or an external monitor.</div>
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="num">4</div><div style="flex:1">
+    <h2 class="zh">看懂怎么做，并试按三个键</h2><h2 class="en">Learn the task and try the three keys</h2>
+    <p class="zh">每题左右各有一张压缩图。<b>按住空格</b>，两边都换成原图；<b>松开</b>，回到两张压缩图。选出更接近原图的那张：
+      <kbd>F</kbd> 左边，<kbd>J</kbd> 右边。三个键都试过（变绿）以后，点「开始练习」。</p>
+    <p class="en">Each trial shows two compressed images. <b>Hold Space</b> and both become the original; <b>release</b> to see the compressed ones again.
+      Pick the one closer to the original: <kbd>F</kbd> left, <kbd>J</kbd> right. Once all three keys are green, click "Start practice".</p>
+    <img class="shot zh" src="img/zh_04_howto.jpg" alt=""><img class="shot en" src="img/en_04_howto.jpg" alt="">
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="num">5</div><div style="flex:1">
+    <h2 class="zh">练习 6 题（会告诉你对不对）</h2><h2 class="en">6 practice trials (with feedback)</h2>
+    <p class="zh">实验时页面会变成全屏、灰色背景。下面左图是平时看到的样子；右图是按住空格时，两边都变成了原图。</p>
+    <p class="en">The study runs full screen on a grey background. Left: what you normally see. Right: while you hold Space, both sides show the original.</p>
+    <div class="two">
+      <div><img class="shot zh" src="img/zh_05_trial.jpg" alt=""><img class="shot en" src="img/en_05_trial.jpg" alt="">
+        <div class="cap zh">平时：两张压缩图</div><div class="cap en">normally: two compressed images</div></div>
+      <div><img class="shot zh" src="img/zh_06_original.jpg" alt=""><img class="shot en" src="img/en_06_original.jpg" alt="">
+        <div class="cap zh">按住空格：两边都是原图</div><div class="cap en">holding Space: both show the original</div></div>
+    </div>
+    <div class="two">
+      <div><img class="shot zh" src="img/zh_07_feedback.jpg" alt=""><img class="shot en" src="img/en_07_feedback.jpg" alt="">
+        <div class="cap zh">练习题选完会提示对错（正式题不提示）</div><div class="cap en">practice trials tell you whether you were right (the main part does not)</div></div>
+      <div><img class="shot zh" src="img/zh_08_practice_done.jpg" alt=""><img class="shot en" src="img/en_08_practice_done.jpg" alt="">
+        <div class="cap zh">练完可以再练一遍，或者开始正式实验</div><div class="cap en">practise again, or start the main part</div></div>
+    </div>
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="num">6</div><div style="flex:1">
+    <h2 class="zh">正式实验：约 25 分钟，中间有 4 次休息</h2><h2 class="en">Main part: about 25 minutes, with 4 breaks</h2>
+    <p class="zh">底部有进度条。差别常常很小，看不出来时凭第一感觉选一个，不用纠结，一般每题 3–6 秒。休息时想歇多久都可以。</p>
+    <p class="en">A progress bar is at the bottom. Differences are often small; if you cannot tell, go with your first impression (usually 3–6 seconds per trial). Rest as long as you like during the breaks.</p>
+    <img class="shot zh" src="img/zh_09_break.jpg" alt=""><img class="shot en" src="img/en_09_break.jpg" alt="">
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="num">7</div><div style="flex:1">
+    <h2 class="zh">提交结果</h2><h2 class="en">Submit the result</h2>
+    <p class="zh">点「提交结果」，浏览器会下载一个以 <b>image_study_</b> 开头的文件（一般在「下载」文件夹里）。<b>请按页面上的提示把这个文件发给组织者</b>
+      （如果页面显示"已自动提交"，组织者已经收到了）。</p>
+    <p class="en">Click "Submit the result". The browser downloads a file whose name starts with <b>image_study_</b> (usually in your Downloads folder).
+      <b>Please send this file to the organizer as the page says</b> (if the page says it was sent automatically, the organizer already has it).</p>
+    <img class="shot zh" src="img/zh_10_end.jpg" alt=""><img class="shot en" src="img/en_10_end.jpg" alt="">
+  </div></div></div>
+
+  <div class="card">
+    <h2 class="zh">常见问题</h2><h2 class="en">Questions</h2>
+    <dl class="zh">
+      <dt>中途要离开怎么办？</dt><dd>直接关掉网页就行，每答一题都会自动保存。之后用<b>同一台电脑、同一个浏览器</b>打开同一个链接，点「继续上次」。</dd>
+      <dt>按 F、J 没反应？</dt><dd>先用鼠标点一下页面，再把输入法切换成英文。</dd>
+      <dt>图片加载很慢？</dt><dd>稍等一下，后面的题会提前加载。网速实在太慢，可以在 GitHub 仓库页面点 Code → Download ZIP（约 180 MB），解压后双击 index.html，选自己的编号来做。</dd>
+      <dt>两张图看起来一样？</dt><dd>很正常，很多题差别都很小。凭第一感觉选一个就行。</dd>
+      <dt>做完忘了发文件？</dt><dd>用同一台电脑、同一个浏览器打开同一个链接，点「查看结果 / 再次下载」。</dd>
+      <dt>有其他问题？</dt><dd>请联系发给你链接的组织者。</dd>
+    </dl>
+    <dl class="en">
+      <dt>I need to stop halfway.</dt><dd>Just close the page; every answer is saved. Later, open the same link on the <b>same computer and browser</b> and click "Continue".</dd>
+      <dt>F and J do nothing.</dt><dd>Click once on the page, then switch your keyboard input to English.</dd>
+      <dt>Images load slowly.</dt><dd>Wait a moment; later trials are loaded ahead. On a very slow connection, download the repository as a ZIP from GitHub (Code → Download ZIP, about 180 MB), unzip it, double-click index.html and choose your code.</dd>
+      <dt>The two images look the same.</dt><dd>That is normal; many differences are small. Go with your first impression.</dd>
+      <dt>I finished but forgot to send the file.</dt><dd>Open the same link on the same computer and browser and click "See result / download again".</dd>
+      <dt>Other questions?</dt><dd>Please contact the organizer who sent you the link.</dd>
+    </dl>
+  </div>
+
+  <p style="text-align:center"><a class="btn zh" href="index.html">去做实验</a><a class="btn en" href="index.html">Go to the study</a></p>
+</div>
+<script>
+  (function () {
+    const q = new URLSearchParams(location.search);
+    let lang = (q.get('lang') || localStorage.getItem('image_study_lang') || 'zh').startsWith('en') ? 'en' : 'zh';
+    const b = document.getElementById('lb');
+    function apply() {
+      document.body.classList.toggle('lang-en', lang === 'en');
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      b.textContent = lang === 'zh' ? 'English' : '中文';
+      const keep = location.search;                                     // keep the participant code on the way back
+      document.querySelectorAll('a[href="index.html"]').forEach(a => { a.href = 'index.html' + keep; });
+    }
+    b.onclick = () => { lang = lang === 'zh' ? 'en' : 'zh'; try { localStorage.setItem('image_study_lang', lang); } catch (e) {} apply(); };
+    apply();
+  })();
+</script>
+</body>
+</html>
