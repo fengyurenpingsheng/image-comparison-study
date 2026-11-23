@@ -19,7 +19,8 @@ function doPost(e) {
     var name = 'image_study_unknown_' + stamp + '.json';
     try {
       var j = JSON.parse(body);
-      if (j && j.set) name = 'image_study_' + String(j.set).replace(/[^A-Za-z0-9]/g, '') + '_' + String(j.started || stamp).replace(/[:.]/g, '-') + '.json';
+      var who = String((j && (j.pid || j.set)) || 'anon').replace(/[^A-Za-z0-9@._\-\u4e00-\u9fff]+/g, '_').slice(0, 40);
+      if (j) name = 'image_study_' + who + '_' + String(j.started || stamp).replace(/[:.]/g, '-') + '.json';
     } catch (err) {
       name = 'image_study_unreadable_' + stamp + '.txt';
     }

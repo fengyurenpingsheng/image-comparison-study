@@ -16,9 +16,9 @@
 5. 复制显示的 **网页应用网址**（以 `https://script.google.com/macros/s/` 开头、以 `/exec` 结尾）。
 6. 在浏览器里打开这个网址，看到 `ok: the collection address works` 就说明能用。
 7. 打开网站文件夹里的 `config.js`，把网址填到 `upload_url: ''` 的引号里，保存，然后推送（见 `组织者说明.md` 第 3 步）。
-8. 自己用一个编号完整做一遍，确认你的 Google Drive 里出现了文件夹 `image_study_results` 和一个 `.json` 文件。
+8. 自己填一个测试名字（例如 test）完整做一遍，确认你的 Google Drive 里出现了文件夹 `image_study_results` 和一个 `.json` 文件。
 
 ## 收到的文件
 
-- 每做完一份，`image_study_results` 里就多一个 `image_study_P05_….json`。
+- 每做完一份，`image_study_results` 里就多一个 `image_study_<名字>_….json`。
 - 把这些文件下载下来，和参与者发给你的文件放在一起（研究文件夹的 `subj_own_results/`）。同一份结果可能既自动提交、又被参与者发来，重复的没关系，检查脚本会标出来。

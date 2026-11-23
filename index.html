@@ -34,6 +34,8 @@
   label.chk { display: flex; gap: 10px; align-items: flex-start; margin: 10px 0; cursor: pointer; }
   label.chk input { width: 20px; height: 20px; margin-top: 3px; }
   .q { display: grid; grid-template-columns: 230px 1fr; gap: 10px 14px; align-items: center; margin: 14px 0; }
+  .idrow { margin: 18px 0 6px; }
+  .idrow input { font-size: 18px; padding: 9px 12px; width: 100%; max-width: 440px; border: 1px solid #c3ccd8; border-radius: 8px; margin: 6px 0; }
   .note { background: #f6f8fb; border-left: 4px solid var(--accent); padding: 10px 14px; border-radius: 6px; margin: 14px 0; color: #333; }
   .warnbox { background: var(--warn-bg); border-left: 4px solid #e8a33d; padding: 10px 14px; border-radius: 6px; margin: 14px 0; }
   .check { display: flex; gap: 14px; align-items: flex-start; border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
@@ -91,7 +93,9 @@
     <div class="fact" data-t="w_f1"></div><div class="fact" data-t="w_f2"></div>
     <div class="fact" data-t="w_f3"></div><div class="fact" data-t="w_f4"></div>
   </div>
-  <div id="setbox"></div>
+  <div class="idrow"><label for="pid"><b data-t="w_id"></b></label><br>
+    <input id="pid" type="text" maxlength="60" autocomplete="off" spellcheck="false">
+    <div class="small muted" data-t="w_id_note"></div></div>
   <div id="resumebox" class="note hidden"></div>
   <p>
     <button class="btn" id="b-start"></button>
@@ -195,7 +199,7 @@
   'use strict';
   const S = window.ERG_S3, CFG = window.STUDY_CONFIG || {};
   const $ = (id) => document.getElementById(id);
-  const SITE = 'study-1.0';
+  const SITE = 'study-2.0';
   const NEED_W = 2 * 768 + 24, NEED_H = 768 + 52;          // device pixels: two images side by side at 1:1, plus the status line
   const qs = new URLSearchParams(location.search);
 
@@ -204,21 +208,21 @@
     zh: {
       w_title: '图像对比小实验',
       w_sub: '两张压缩过的照片，哪一张更接近原图？请用你的眼睛帮我们判断。',
-      w_f1: '<b>⏱ 大约 30 分钟</b>先练习 6 题，再做正式题；中间有 4 次休息。',
+      w_f1: '<b>⏱ 大约 15 分钟</b>先练习 6 题，再做正式题；中间休息 1 次。',
       w_f2: '<b>💻 需要电脑和键盘</b>手机和平板不行。推荐 Chrome、Edge、Firefox 或 Safari。',
       w_f3: '<b>🖥 屏幕至少 1600×900 像素</b>大多数笔记本和显示器都可以，下一步会自动检查。',
-      w_f4: '<b>🔒 匿名、自愿</b>不收集姓名；随时可以关掉网页退出，进度会保存。',
-      w_set: '你的编号', w_choose: '请选择组织者告诉你的编号', w_pick: '— 请选择 —',
+      w_f4: '<b>🔒 自愿参加</b>只需填一个名字或邮箱，用来区分结果；随时可以关掉网页退出，进度会保存。',
+      w_id: '你的名字、昵称或邮箱', w_id_ph: '例如：张三 或 zhangsan@example.com', w_id_note: '只用来区分谁交了结果，不会公开。以后在同一台电脑上填同样的名字，可以接着做。',
       w_start: '开始', w_resume: '继续上次', w_restart: '重新开始', w_review: '查看结果 / 再次下载',
-      w_saved: (n, N) => '这个编号上次做到第 <b>' + n + ' / ' + N + '</b> 题，可以接着做。',
-      w_done: '这个编号已经全部做完了，谢谢！如果还没把结果发给组织者，可以再下载一次。',
-      w_noset: '请先选择你的编号。', w_confirm_restart: '确定要从头开始吗？这个编号已保存的答案会被清除。',
+      w_saved: (n, N) => '用这个名字上次做到第 <b>' + n + ' / ' + N + '</b> 题，可以接着做。',
+      w_done: '用这个名字已经全部做完了，谢谢！如果还没把结果发给组织者，可以再下载一次。',
+      w_noset: '请先填写你的名字、昵称或邮箱。', w_confirm_restart: '确定要从头开始吗？用这个名字保存的答案会被清除。',
       w_guide: '第一次参加？可以先看一下', w_guide_link: '图文教程（带截图）',
       step1: '第 1 步 / 共 4 步', step2: '第 2 步 / 共 4 步', step3: '第 3 步 / 共 4 步', step4: '第 4 步 / 共 4 步',
       c_title: '参与说明',
       c_body: (r, c, e) => '<p><b>研究内容</b>　这是一项关于图像压缩质量的研究。你会看到同一张照片的不同压缩版本，判断哪一张更接近原图。</p>' +
-        '<p><b>怎么做</b>　先做 6 道练习题，然后做正式题，每题几秒钟，一共约 30 分钟。</p>' +
-        '<p><b>自愿和匿名</b>　参与完全自愿，你可以随时关闭网页退出，不需要说明原因。我们不收集姓名、邮箱或 IP 地址，只记录你的选择、每题用时、屏幕尺寸和浏览器类型。</p>' +
+        '<p><b>怎么做</b>　先做 6 道练习题，然后做正式题，每题几秒钟，一共约 15 分钟。</p>' +
+        '<p><b>自愿参加、保护隐私</b>　参与完全自愿，你可以随时关闭网页退出，不需要说明原因。你填的名字或邮箱只用来区分结果，不会公开，分析前会换成编号。我们不收集 IP 地址；除此之外只记录你的选择、每题用时、屏幕尺寸和浏览器类型。</p>' +
         '<p><b>风险</b>　和平时看电脑屏幕一样，没有额外风险。眼睛累了可以在休息时多歇一会儿。</p>' +
         '<p><b>数据用途</b>　只用于学术研究，结果以汇总形式发表，不会出现任何能认出你的信息。</p>' +
         '<p><b>研究者</b>　' + r + (c ? '<br><b>联系方式</b>　' + c : '') + '</p>' + (e ? '<p class="small muted">' + e + '</p>' : ''),
@@ -252,7 +256,7 @@
       h_next: '开始练习（6 题）',
       pr_intro: '<h1>练习</h1><p>先做 6 道练习题熟悉操作，每题做完会告诉你对不对。</p><p><kbd>␣</kbd> 按住看原图　<kbd>F</kbd> 左边更接近　<kbd>J</kbd> 右边更接近</p>',
       pr_go: '开始练习',
-      pr_end: (N, b) => '<h1>练习结束 👍</h1><p>正式题一共 <b>' + N + '</b> 道，每 ' + b + ' 道休息一次，大约 25 分钟。正式题不再提示对错。</p><p>准备好了就开始吧。</p>',
+      pr_end: (N, b) => '<h1>练习结束 👍</h1><p>正式题一共 <b>' + N + '</b> 道，每 ' + b + ' 道休息一次，大约 12 分钟。正式题不再提示对错。</p><p>准备好了就开始吧。</p>',
       pr_main: '开始正式实验', pr_again: '再练一遍',
       fb_good: '✓ 选对了', fb_bad_L: '这一题左边更接近原图', fb_bad_R: '这一题右边更接近原图',
       brk: (n, N, m) => '<h1>休息一下 ☕</h1><p>已完成 <b>' + n + ' / ' + N + '</b> 题，大约还要 ' + m + ' 分钟。</p><p>眼睛累了可以多歇一会儿，准备好了再继续。</p>',
@@ -264,34 +268,34 @@
       p_title: '暂停', p_small: '窗口变小了，图片没法按原尺寸显示。请恢复全屏或最大化窗口。', p_zoom: '浏览器缩放变了。请把缩放调回刚才的大小（按 Ctrl/⌘ 加减号）。',
       p_go: '全屏并继续',
       e_title: '完成了，谢谢你！🎉',
-      e_sum: (p, n, ok, k) => '你的编号 <b>' + p + '</b>：完成 ' + n + ' 题，注意力检查 ' + ok + ' / ' + k + ' 正确。',
+      e_sum: (p, n, ok, k) => '<b>' + p + '</b>：完成 ' + n + ' 题，注意力检查 ' + ok + ' / ' + k + ' 正确。',
       e_comment: '留言（可以不写）', e_ph: '有什么想告诉我们的？比如哪里不清楚、哪里不舒服。',
       e_submit: '提交结果', e_again: '再下载一次',
       e_up_ok: (c) => '<div class="warnbox" style="background:var(--ok-bg);border-color:var(--ok)">✓ 已自动提交给组织者。同时也下载了一份文件留作备份' + (c ? '；如果组织者需要，可以发到：' + c : '') + '。</div>',
       e_up_bad: (c) => '<div class="warnbox">自动提交没有成功。结果文件已经下载（在「下载」文件夹里，文件名以 image_study_ 开头），请把它发给组织者' + (c ? '：' + c : '') + '。</div>',
       e_dl: (c) => '<div class="warnbox">结果文件已经下载（一般在「下载」文件夹里，文件名以 <b>image_study_</b> 开头）。<br><b>请把这个文件发给组织者' + (c ? '：' + c : '') + '。</b></div>',
-      e_kept: '结果也保存在这个浏览器里；以后用同一个链接打开，还可以再下载。',
+      e_kept: '结果也保存在这个浏览器里；以后在这台电脑上打开网页、填同样的名字，还可以再下载。',
       m_title: '请用电脑打开', m_text: '这个实验需要键盘和较大的屏幕，手机和平板没法做。把链接发到电脑上，用 Chrome、Edge、Firefox 或 Safari 打开就行。',
       no_trials: '找不到 trials.js（实验题目文件）。请从完整的文件夹打开 index.html。'
     },
     en: {
       w_title: 'Image comparison study',
       w_sub: 'Two compressed versions of a photo: which one is closer to the original? Your eyes are the judge.',
-      w_f1: '<b>⏱ About 30 minutes</b>6 practice trials, then the main part, with 4 breaks.',
+      w_f1: '<b>⏱ About 15 minutes</b>6 practice trials, then the main part, with one break.',
       w_f2: '<b>💻 A computer with a keyboard</b>Phones and tablets will not work. Chrome, Edge, Firefox or Safari.',
       w_f3: '<b>🖥 A screen of at least 1600×900 pixels</b>Most laptops and monitors; checked automatically in the next step.',
-      w_f4: '<b>🔒 Anonymous and voluntary</b>No names are collected; close the page at any time, your progress is saved.',
-      w_set: 'Your code', w_choose: 'Choose the code the organizer gave you', w_pick: '— choose —',
+      w_f4: '<b>🔒 Voluntary</b>Only a name or e-mail, to tell the results apart; close the page at any time, your progress is saved.',
+      w_id: 'Your name, nickname or e-mail', w_id_ph: 'e.g. Alex or alex@example.com', w_id_note: 'Only used to tell the results apart; it is not made public. Type the same name on the same computer later to continue.',
       w_start: 'Start', w_resume: 'Continue', w_restart: 'Start over', w_review: 'See result / download again',
-      w_saved: (n, N) => 'Last time you reached trial <b>' + n + ' / ' + N + '</b> with this code; you can continue.',
-      w_done: 'This code is finished, thank you! If you have not sent the result to the organizer yet, you can download it again.',
-      w_noset: 'Please choose your code first.', w_confirm_restart: 'Start from the beginning? The saved answers of this code will be deleted.',
+      w_saved: (n, N) => 'Last time you reached trial <b>' + n + ' / ' + N + '</b> with this name; you can continue.',
+      w_done: 'This name has finished, thank you! If you have not sent the result to the organizer yet, you can download it again.',
+      w_noset: 'Please type your name, nickname or e-mail first.', w_confirm_restart: 'Start from the beginning? The answers saved under this name will be deleted.',
       w_guide: 'First time? Have a look at the', w_guide_link: 'illustrated guide (with screenshots)',
       step1: 'Step 1 of 4', step2: 'Step 2 of 4', step3: 'Step 3 of 4', step4: 'Step 4 of 4',
       c_title: 'Information for participants',
       c_body: (r, c, e) => '<p><b>What the study is about</b>  Image compression quality. You will see different compressed versions of the same photo and judge which one is closer to the original.</p>' +
-        '<p><b>What you do</b>  6 practice trials, then the main part; a few seconds per trial, about 30 minutes in total.</p>' +
-        '<p><b>Voluntary and anonymous</b>  Taking part is voluntary; you can close the page at any time without giving a reason. We do not collect names, e-mail or IP addresses; only your choices, response times, screen size and browser type are recorded.</p>' +
+        '<p><b>What you do</b>  6 practice trials, then the main part; a few seconds per trial, about 15 minutes in total.</p>' +
+        '<p><b>Voluntary; your privacy</b>  Taking part is voluntary; you can close the page at any time without giving a reason. The name or e-mail you type is only used to tell the results apart; it is not made public and is replaced by a number before analysis. IP addresses are not collected; otherwise only your choices, response times, screen size and browser type are recorded.</p>' +
         '<p><b>Risks</b>  None beyond ordinary screen use. Rest longer during the breaks if your eyes get tired.</p>' +
         '<p><b>Use of the data</b>  Academic research only; results are published in aggregate, with nothing that could identify you.</p>' +
         '<p><b>Researcher</b>  ' + r + (c ? '<br><b>Contact</b>  ' + c : '') + '</p>' + (e ? '<p class="small muted">' + e + '</p>' : ''),
@@ -325,7 +329,7 @@
       h_next: 'Start practice (6 trials)',
       pr_intro: '<h1>Practice</h1><p>6 practice trials to get used to the keys; after each one you will see whether you were right.</p><p><kbd>␣</kbd> hold for the original   <kbd>F</kbd> left is closer   <kbd>J</kbd> right is closer</p>',
       pr_go: 'Start practice',
-      pr_end: (N, b) => '<h1>Practice done 👍</h1><p>The main part has <b>' + N + '</b> trials, with a break every ' + b + ', about 25 minutes. There is no more feedback from now on.</p><p>Start whenever you are ready.</p>',
+      pr_end: (N, b) => '<h1>Practice done 👍</h1><p>The main part has <b>' + N + '</b> trials, with a break every ' + b + ', about 12 minutes. There is no more feedback from now on.</p><p>Start whenever you are ready.</p>',
       pr_main: 'Start the main part', pr_again: 'Practise again',
       fb_good: '✓ Right', fb_bad_L: 'The left one was closer to the original', fb_bad_R: 'The right one was closer to the original',
       brk: (n, N, m) => '<h1>Short break ☕</h1><p><b>' + n + ' / ' + N + '</b> done, about ' + m + ' minutes to go.</p><p>Rest your eyes as long as you like; continue when ready.</p>',
@@ -338,13 +342,13 @@
       p_zoom: 'The browser zoom changed. Please set it back (Ctrl/⌘ with plus or minus).',
       p_go: 'Full screen and continue',
       e_title: 'Done — thank you! 🎉',
-      e_sum: (p, n, ok, k) => 'Your code <b>' + p + '</b>: ' + n + ' trials completed, attention checks ' + ok + ' / ' + k + ' correct.',
+      e_sum: (p, n, ok, k) => '<b>' + p + '</b>: ' + n + ' trials completed, attention checks ' + ok + ' / ' + k + ' correct.',
       e_comment: 'Comments (optional)', e_ph: 'Anything you want to tell us? E.g. something unclear or uncomfortable.',
       e_submit: 'Submit the result', e_again: 'Download again',
       e_up_ok: (c) => '<div class="warnbox" style="background:var(--ok-bg);border-color:var(--ok)">✓ Sent to the organizer automatically. A copy was also downloaded as a backup' + (c ? '; if asked, send it to: ' + c : '') + '.</div>',
       e_up_bad: (c) => '<div class="warnbox">The automatic sending did not work. The result file has been downloaded (in your Downloads folder, its name starts with image_study_); please send it to the organizer' + (c ? ': ' + c : '') + '.</div>',
       e_dl: (c) => '<div class="warnbox">The result file has been downloaded (usually in your Downloads folder; its name starts with <b>image_study_</b>).<br><b>Please send this file to the organizer' + (c ? ': ' + c : '') + '.</b></div>',
-      e_kept: 'The result also stays in this browser; open the same link later to download it again.',
+      e_kept: 'The result also stays in this browser; open the page on this computer and type the same name to download it again.',
       m_title: 'Please use a computer', m_text: 'This study needs a keyboard and a large screen, so phones and tablets will not work. Open the link on a computer with Chrome, Edge, Firefox or Safari.',
       no_trials: 'trials.js (the trial list) was not found. Please open index.html from the complete folder.'
     }
@@ -363,7 +367,7 @@
     $('consenttext').innerHTML = L('c_body')(cz('researcher') || 'Haisheng Fu', cz('contact'), cz('ethics'));
     fillSelect('q-age', L('o_age')); fillSelect('q-vision', L('o_vision')); fillSelect('q-exp', L('o_exp')); fillSelect('q-disp', L('o_disp'));
     const g = document.querySelector('a[href^="guide.html"]'); if (g) g.href = 'guide.html' + location.search;
-    renderSet(); checkDisplay();
+    renderId(); checkDisplay();
   }
   function fillSelect(id, opts) {
     const s = $(id), cur = s.selectedIndex;
@@ -388,52 +392,55 @@
   const devW = () => Math.round(window.innerWidth * dpr()), devH = () => Math.round(window.innerHeight * dpr());
   const bigEnough = () => devW() >= NEED_W && devH() >= NEED_H;
 
-  // ------------------------------------------------------------------ participant code
+  // ------------------------------------------------------------------ participant name / e-mail
+  // The person types a name or e-mail; it picks one of the shuffled orders (every order holds every comparison)
+  // and names the saved progress and the result file.  The organizer numbers the results internally.
   const KEY = (p) => 'image_study_' + S.version + '_' + S.seed + '_' + p;
   const codes = Object.keys(S.participants).sort();
-  let setId = (qs.get('p') || '').toUpperCase();
-  const fixedSet = codes.includes(setId);
-  if (!fixedSet) setId = '';
+  const norm = (v) => (v || '').trim().replace(/\s+/g, ' ').toLowerCase();
+  const fnv = (v) => { let h = 0x811c9dc5; for (let i = 0; i < v.length; i++) { h ^= v.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h >>> 0; };
+  const setFor = (k) => codes[fnv(k) % codes.length];
+  const esc = (v) => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fileSafe = (v) => ((v || '').normalize('NFKC').replace(/[^\p{L}\p{N}@._-]+/gu, '_').replace(/^_+|_+$/g, '').slice(0, 40)) || 'anon';
+  let pid = '', pidKey = '';
   let state = null;
   function load(p) { try { const s = localStorage.getItem(KEY(p)); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
-  function save() { try { localStorage.setItem(KEY(state.set), JSON.stringify(state)); } catch (e) {} }
-  function renderSet() {
-    const box = $('setbox');
-    if (fixedSet) box.innerHTML = '<p>' + L('w_set') + '：<b style="font-size:20px">' + setId + '</b></p>';
-    else {
-      box.innerHTML = '<p>' + L('w_choose') + '：<select id="pid"><option value="">' + L('w_pick') + '</option>' +
-        codes.map(c => '<option' + (c === setId ? ' selected' : '') + '>' + c + '</option>').join('') + '</select></p>';
-      $('pid').onchange = (e) => { setId = e.target.value; renderResume(); };
-    }
-    renderResume();
-  }
+  function save() { try { localStorage.setItem(KEY(state.pid_key), JSON.stringify(state)); } catch (e) {} }
+  function renderId() { $('pid').placeholder = L('w_id_ph'); renderResume(); }
+  $('pid').addEventListener('input', () => { pid = $('pid').value.trim().replace(/\s+/g, ' '); pidKey = norm(pid); renderResume(); });
+  $('pid').addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault(); ($('b-resume').classList.contains('hidden') ? $('b-start') : $('b-resume')).click();
+  });
   function renderResume() {
-    const st = setId ? load(setId) : null, N = setId ? S.participants[setId].length : 0;
+    const st = pidKey ? load(pidKey) : null;
     $('resumebox').classList.add('hidden'); $('b-resume').classList.add('hidden'); $('b-restart').classList.add('hidden');
     $('b-start').classList.remove('hidden');
-    if (!st) return;
+    if (!st || !S.participants[st.set]) return;
+    const N = S.participants[st.set].length;
     $('resumebox').classList.remove('hidden'); $('b-restart').classList.remove('hidden'); $('b-restart').textContent = L('w_restart');
     $('b-resume').classList.remove('hidden'); $('b-start').classList.add('hidden');
     if (st.finished) { $('resumebox').innerHTML = L('w_done'); $('b-resume').textContent = L('w_review'); }
     else { $('resumebox').innerHTML = L('w_saved')(st.responses.length, N); $('b-resume').textContent = L('w_resume'); }
   }
-  function newState(p) {
-    return { version: S.version, seed: S.seed, site: SITE, set: p, lang: lang, started: new Date().toISOString(), finished: null,
+  function newState() {
+    return { version: S.version, seed: S.seed, site: SITE, pid: pid, pid_key: pidKey, set: setFor(pidKey), lang: lang,
+             started: new Date().toISOString(), finished: null,
              screen: { w: screen.width, h: screen.height, dpr: dpr(), ua: ua, inner_w: window.innerWidth, inner_h: window.innerHeight },
              consent: null, about: null, display_check: null, practice: [], practice_rounds: 0, responses: [], events: [], comment: '' };
   }
   $('b-start').onclick = () => {
-    if (!setId) { alert(L('w_noset')); return; }
-    state = newState(setId); save(); show('s-consent');
+    if (!pidKey) { alert(L('w_noset')); $('pid').focus(); return; }
+    state = newState(); save(); show('s-consent');
   };
   $('b-restart').onclick = () => {
     if (!confirm(L('w_confirm_restart'))) return;
-    try { localStorage.removeItem(KEY(setId)); } catch (e) {}
+    try { localStorage.removeItem(KEY(pidKey)); } catch (e) {}
     renderResume();
   };
   $('b-resume').onclick = () => {
-    state = load(setId);
-    if (!state) { renderResume(); return; }
+    state = load(pidKey);
+    if (!state || !S.participants[state.set]) { renderResume(); return; }
     if (state.finished) { showEnd(); return; }
     if (!state.consent) { show('s-consent'); return; }
     if (!state.display_check) { show('s-display'); return; }
@@ -606,7 +613,7 @@
   }
   function showEnd() {
     const chk = state.responses.filter(r => r.c === 'check');
-    $('endsum').innerHTML = L('e_sum')(state.set, state.responses.length, chk.filter(r => r.correct).length, chk.length);
+    $('endsum').innerHTML = L('e_sum')(esc(state.pid || state.set), state.responses.length, chk.filter(r => r.correct).length, chk.length);
     $('comment').value = state.comment || '';
     $('sendinfo').classList.add('hidden');
     $('b-again').classList.toggle('hidden', !state.submitted);
@@ -616,7 +623,7 @@
     const blob = new Blob([JSON.stringify(state)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'image_study_' + state.set + '_' + state.started.replace(/[:.]/g, '-') + '.json';
+    a.download = 'image_study_' + fileSafe(state.pid) + '_' + state.started.replace(/[:.]/g, '-') + '.json';
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   }
